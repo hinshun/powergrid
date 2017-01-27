@@ -1,0 +1,87 @@
+seattle,3,portland
+seattle,12,boise
+portland,24,san francisco
+san francisco,9,los angeles
+los angeles,3,san diego
+san francisco,14,las vegas
+los angeles,9,las vegas
+portland,13,boise
+seattle,9,billings
+san francisco,23,boise
+san francisco,27,salt lake city
+san diego,9,las vegas
+san diego,14,phoenix
+las vegas,15,phoenix
+las vegas,18,salt lake city
+las vegas,27,santa fe
+boise,8,salt lake city
+boise,12,billings
+boise,24,cheyenne
+billings,17,fargo
+billings,9,cheyenne
+salt lake city,21,denver
+phoenix,18,santa fe
+salt lake city,28,santa fe
+santa fe,13,denver
+denver,0,cheyenne
+santa fe,21,houston
+santa fe,16,kansas city
+santa fe,15,oklahoma city
+santa fe,16,dallas
+billings,18,minneapolis
+cheyenne,14,omaha
+cheyenne,18,minneapolis
+denver,16,kansas city
+houston,5,new orleans
+houston,8,dallas
+dallas,3,oklahoma city
+dallas,12,memphis
+dallas,12,new orleans
+oklahoma city,14,memphis
+oklahoma city,8,kansas city
+omaha,5,kansas city
+kansas city,12,memphis
+kansas city,6,st. louis
+kansas city,8,chicago
+omaha,13,chicago
+omaha,8,minneapolis
+fargo,6,duluth
+fargo,6,minneapolis
+duluth,5,minneapolis
+chicago,8,minneapolis
+chicago,12,duluth
+chicago,7,detroit
+chicago,7,cincinati
+chicago,10,st. louis
+detroit,15,duluth
+detroit,7,buffalo
+detroit,6,pittsburgh
+detroit,4,cincinnati
+brimingham,6,memphis
+brimingham,11,new orleans
+brimingham,3,jacksonville
+brimingham,9,atlanta
+new orleans,7,memphis
+st. louis,7,memphis
+st. louis,12,cincinnati
+st. louis,12,knoxville
+new orleans,16,jacksonville
+tampa,4,jacksonville
+tampa,4,miami
+savannah,0,jacksonville
+savannah,7,atlanta
+atlanta,5,knoxville
+knoxville,6,cincinati
+cincineati,7,pittsburgh
+cincineati,15,raleigh
+atlanta,7,raleigh
+savannah,7,raleigh
+raleigh,3,norfolk
+raleigh,7,pittsburgh
+boston,3,new york
+new york,0,philadelphia
+new york,8,buffalo
+buffalo,7,pittsburgh
+pittsburgh,6,washington d.c.
+washington d.c.,3,philadelphia
+washington d.c.,5,norfolk
