@@ -15,7 +15,7 @@ const (
 )
 
 // A ResourceSet is a collection of resource quantities.
-type ResourceSet map[Resource]uint
+type ResourceSet map[Resource]int
 
 type Player interface {
 	Elektro() Elektro
