@@ -33,7 +33,7 @@ func (ppm *powerPlantMarket) Add(addPlant powergrid.PowerPlant) {
 		if addPlant.Ordinal() < powerPlant.Ordinal() {
 			ppm.powerPlants = append(
 				append(ppm.powerPlants[:i], addPlant),
-				ppm.powerPlants[i+1:],
+				ppm.powerPlants[i+1:]...,
 			)
 			return
 		}
@@ -45,7 +45,7 @@ func (ppm *powerPlantMarket) Add(addPlant powergrid.PowerPlant) {
 func (ppm *powerPlantMarket) Remove(removePlant powergrid.PowerPlant) error {
 	for i, powerPlant := range ppm.powerPlants {
 		if removePlant == powerPlant {
-			ppm.powerPlants = append(ppm.powerPlants[:i], ppm.powerPlants[i+1:])
+			ppm.powerPlants = append(ppm.powerPlants[:i], ppm.powerPlants[i+1:]...)
 			return nil
 		}
 	}

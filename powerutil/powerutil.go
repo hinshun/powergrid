@@ -1,6 +1,10 @@
 package powerutil
 
-import "github.com/hinshun/powergrid"
+import (
+	"math/rand"
+
+	"github.com/hinshun/powergrid"
+)
 
 func PlayerOwnedCities(player powergrid.Player, board powergrid.Board) uint {
 	count := uint(0)
@@ -45,7 +49,7 @@ type PowerPlants struct {
 	PowerPlants []powergrid.PowerPlant
 }
 
-func (pp *PowerPlants) Len() int { return len(p.PowerPlants) }
+func (pp *PowerPlants) Len() int { return len(pp.PowerPlants) }
 
 func (pp *PowerPlants) Swap(i, j int) {
 	pp.PowerPlants[i], pp.PowerPlants[j] = pp.PowerPlants[j], pp.PowerPlants[i]

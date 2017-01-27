@@ -1,22 +1,5 @@
 package powergrid
 
-// Elektro is the game's unit of currency.
-type Elektro uint
-
-// A Resource is something.
-type Resource uint8
-
-// Resource Types
-const (
-	Coal Resource = iota
-	Oil
-	Garbage
-	Uranium
-)
-
-// A ResourceSet is a collection of resource quantities.
-type ResourceSet map[Resource]int
-
 type Player interface {
 	Elektro() Elektro
 	PowerPlants() []PowerPlant
@@ -46,12 +29,7 @@ type PowerPlant interface {
 type PowerPlantMarket interface {
 	Inventory() []PowerPlant
 	Add(powerPlant PowerPlant)
-	Remove(powerPlant PowerPlant)
-}
-
-type Bid struct {
-	Bidder Player
-	Price  Elektro
+	Remove(powerPlant PowerPlant) error
 }
 
 type Auction interface {
@@ -59,19 +37,14 @@ type Auction interface {
 	// Bidders returns a sorted list of players where the first is the one who bids next
 	Bidders() []Player
 	CurrentBidder() Player
-	HighestBid() Bid
-	Bid(bid Bid) error
+	HighestBid() Elektro
+	Bid(bid Elektro) error
 	// Pass returns true if the round is over
 	Pass() (bool, error)
 }
 
 type Board interface {
 	Nodes() []Node
-}
-
-type Connection struct {
-	Cost Elektro
-	Node Node
 }
 
 type Node interface {
