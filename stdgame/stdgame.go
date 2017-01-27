@@ -31,29 +31,31 @@ func (g *game) GridInfo() string {
 }
 
 func (g *game) loop() {
-	g.playerOrder()
-	g.auctionPlants()
-	g.buyResources()
-	g.build()
-	g.powerYourShit()
-	g.resources()
+	for p, f := range map[phase]func(){
+		playerOrder:   g.playerOrder,
+		auctionPlants: g.auctionPlants,
+		buyResources:  g.buyResources,
+		build:         g.build,
+		powerYourShit: g.powerYourShit,
+		resources:     g.resources,
+	} {
+		g.currentPhase = p
+		f()
+	}
 }
 
 func (g *game) playerOrder() {
-	g.currentPhase = playerOrder
 	fmt.Println("Reordering players...")
 	sort.Sort(powerutil.PlayersByTurnOrder{g.players, g.board})
 	fmt.Printf("The player order is: %s\n", g.players)
 }
 
 func (g *game) auctionPlants() {
-	g.currentPhase = playerOrder
 	fmt.Println("Auction time!")
 	// TODO
 }
 
 func (g *game) buyResources() {
-	g.currentPhase = buyResources
 	fmt.Println("Buy resources!")
 	for _, player := range g.players {
 		fmt.Printf("It's player %s's turn to buy resources.\n", player.Name())
@@ -65,7 +67,6 @@ func (g *game) buyResourcesPlayer(player powergrid.Player) {
 }
 
 func (g *game) build() {
-	g.currentPhase = build
 	fmt.Println("Build!")
 	for _, player := range g.players {
 		fmt.Printf("It's player %s's turn to build.\n", player.Name())
@@ -78,7 +79,6 @@ func (g *game) buildPlayer(player powergrid.Player) {
 }
 
 func (g *game) powerYourShit() {
-	g.currentPhase = powerYourShit
 	fmt.Println("Power Your Shit!")
 	for _, player := range g.players {
 		fmt.Printf("Player %s is powering his shit.\n", player.Name())
@@ -87,7 +87,6 @@ func (g *game) powerYourShit() {
 }
 
 func (g *game) resources() {
-	g.currentPhase = resources
 	// TODO replenish resources
 }
 
