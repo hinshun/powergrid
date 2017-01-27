@@ -54,9 +54,9 @@ type Auction interface {
 	Bidders() []Player
 	CurrentBidder() Player
 	HighestBid() Bid
-	Bid(bid Bid)
+	Bid(bid Bid) error
 	// Pass returns true if the round is over
-	Pass(player Player) bool
+	Pass() (bool, error)
 }
 
 type Map interface {
