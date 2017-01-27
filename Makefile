@@ -3,6 +3,6 @@ vendor:
 	glide-vc --use-lock-file
 
 run:
-	go run gowergrid.go
+	go run powergrid.go
 
-.PHONY: vendor
+.PHONY: vendor run
