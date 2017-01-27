@@ -1,55 +1,51 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 	"text/template"
+
+	"github.com/hinshun/powergrid"
+	"github.com/hinshun/powergrid/stdgame"
 
 	logrus "github.com/Sirupsen/logrus"
 )
 
 func main() {
-	err := powergrid()
+	err := startPowergrid()
 	if err != nil {
 		logrus.Fatal(err)
 	}
 }
 
-func powergrid() error {
-	go cli()
-	return server()
-}
-
-func cli() error {
-	defer fmt.Println("CLI terminated.")
-	fmt.Println("Welcome to PowerGrid.")
+func startPowergrid() error {
+	fmt.Println("Welcome to PowerGrid. Choose a number of players:")
 	var input string
 	fmt.Scanf("%s", &input)
-
-	fmt.Printf("You entered %s.\n", input)
-	return nil
+	i, err := strconv.ParseUint(input, 10, 32)
+	if err != nil {
+		return fmt.Errorf("failed to parse input: %s", err)
+	}
+	game := stdgame.New(uint(i))
+	go cli(game)
+	return server(game)
 }
 
-func server() error {
+func cli(game powergrid.Game) {
+	game.Run()
+}
+
+func server(game powergrid.Game) error {
 	server := &http.Server{
 		Addr: ":8080",
 	}
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		rendered, err := json.Marshal(struct {
-			PowerGrid string
-		}{
-			PowerGrid: "things",
-		})
-		if err != nil {
-			panic(err)
-		}
-
 		type Template struct {
 			Data string
 		}
 		data := Template{
-			Data: string(rendered),
+			Data: game.GridInfo(),
 		}
 		tmpl, err := template.New("").Parse(`<html><script> data={{.Data}};
 		console.log(data);</script></html>`)

@@ -17,6 +17,11 @@ const (
 // A ResourceSet is a collection of resource quantities.
 type ResourceSet map[Resource]uint
 
+type Player interface {
+	Elektro() Elektro
+	PowerPlants() []PowerPlant
+}
+
 //
 type ResourceMarket interface {
 	Inventory() ResourceSet
@@ -73,62 +78,54 @@ type Node interface {
 	Cities() []Player
 }
 
-type Phase uint
-
 type Game interface {
 	Run()
+	// GridInfo return type TBD
+	GridInfo() string
 }
-
-const (
-	PlayerOrder Phase = iota
-	AuctionPlants
-	BuyResources
-	Build
-	Bureaucracy
-)
 
 type Stage interface {
 	Replenish(market ResourceMarket) ResourceSet
-	CanBuildCity(location Location) bool
+	CanBuildCity(location Node) bool
 	CanAuctionPowerPlant(powerPlant PowerPlant) bool
 }
 
-var (
-	GermanyGameRules = Rules{
-		Stage1: GermanyStage1,
-		Stage2: GermanyStage2,
-		Stage3: GermanyStage3,
-		Map:    GermanyMap,
-	}
-
-	GermanyStage1 = StandardStage1{
-		ReplenishRate: ResourceSet{
-			Coal:    3,
-			Oil:     2,
-			Garbage: 3,
-			Uranium: 3,
-		},
-	}
-
-	GermanyStage2 = StandardStage2{
-		ReplenishRate: ResourceSet{
-			Coal:    4,
-			Oil:     3,
-			Garbage: 4,
-			Uranium: 5,
-		},
-	}
-
-	GermanyStage3 = StandardStage3{
-		ReplenishRate: ResourceSet{
-			Coal:    3,
-			Oil:     2,
-			Garbage: 3,
-			Uranium: 3,
-		},
-	}
-)
-
-type Stage1 struct{}
-type Stage2 struct{}
-type Stage2 struct{}
+//var (
+//	GermanyGameRules = Rules{
+//		Stage1: GermanyStage1,
+//		Stage2: GermanyStage2,
+//		Stage3: GermanyStage3,
+//		Map:    GermanyMap,
+//	}
+//
+//	GermanyStage1 = StandardStage1{
+//		ReplenishRate: ResourceSet{
+//			Coal:    3,
+//			Oil:     2,
+//			Garbage: 3,
+//			Uranium: 3,
+//		},
+//	}
+//
+//	GermanyStage2 = StandardStage2{
+//		ReplenishRate: ResourceSet{
+//			Coal:    4,
+//			Oil:     3,
+//			Garbage: 4,
+//			Uranium: 5,
+//		},
+//	}
+//
+//	GermanyStage3 = StandardStage3{
+//		ReplenishRate: ResourceSet{
+//			Coal:    3,
+//			Oil:     2,
+//			Garbage: 3,
+//			Uranium: 3,
+//		},
+//	}
+//)
+//
+//type Stage1 struct{}
+//type Stage2 struct{}
+//type Stage2 struct{}
