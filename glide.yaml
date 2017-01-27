@@ -1,0 +1,4 @@
+package: github.com/hinshun/powergrid
+import:
+- package: github.com/Sirupsen/logrus
+  version: 61e43dc76f7ee59a82bdf3d71033dc12bea4c77d
