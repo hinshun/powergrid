@@ -20,6 +20,7 @@ type ResourceSet map[Resource]uint
 type Player interface {
 	Elektro() Elektro
 	PowerPlants() []PowerPlant
+	Name() string
 }
 
 //
@@ -64,7 +65,7 @@ type Auction interface {
 	Pass() (bool, error)
 }
 
-type Map interface {
+type Board interface {
 	Nodes() []Node
 }
 

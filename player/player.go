@@ -1,14 +1,23 @@
 package player
 
-import "github.com/hinshun/powergrid"
+import (
+	"fmt"
+
+	"github.com/hinshun/powergrid"
+)
 
 type player struct {
-	color   uint
-	elektro powergrid.Elektro
+	color       uint
+	elektro     powergrid.Elektro
+	powerPlants []powergrid.PowerPlant
 }
 
 func New(color uint) powergrid.Player {
 	return player{color: color}
+}
+
+func (p player) Name() string {
+	return fmt.Sprint(p.color)
 }
 
 func (p player) Elektro() powergrid.Elektro {
@@ -16,7 +25,7 @@ func (p player) Elektro() powergrid.Elektro {
 }
 
 func (p player) PowerPlants() []powergrid.PowerPlant {
-	return nil
+	return p.powerPlants
 }
 
 var _ = powergrid.Player((*player)(nil))
