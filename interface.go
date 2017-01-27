@@ -48,6 +48,7 @@ type Board interface {
 }
 
 type Node interface {
+	Name() string
 	Connections() []Connection
 	Cities() []Player
 }

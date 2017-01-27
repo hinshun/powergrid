@@ -4,7 +4,7 @@ import (
 	"github.com/hinshun/powergrid"
 )
 
-// PowerPlant is an implementation of the powergrid.PowerPlant
+// standardPowerPlant is an implementation of the powergrid.PowerPlant
 // interface that works for the game's standard power plants
 type powerPlant struct {
 	ordinal       uint
