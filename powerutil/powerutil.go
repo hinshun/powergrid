@@ -1,6 +1,10 @@
 package powerutil
 
-import "github.com/hinshun/powergrid"
+import (
+	"math/rand"
+
+	"github.com/hinshun/powergrid"
+)
 
 func PlayerOwnedCities(player powergrid.Player, board powergrid.Board) uint {
 	count := uint(0)
@@ -16,6 +20,18 @@ func PlayerOwnedCities(player powergrid.Player, board powergrid.Board) uint {
 	return count
 }
 
+type Collection interface {
+	Len() int
+	Swap(i, j int)
+}
+
+func Shuffle(collection Collection) {
+	for i := 0; i < collection.Len(); i++ {
+		j := rand.Intn(i + 1)
+		collection.Swap(i, j)
+	}
+}
+
 type PlayersByTurnOrder struct {
 	Players []powergrid.Player
 	Board   powergrid.Board
@@ -27,4 +43,14 @@ func (p PlayersByTurnOrder) Swap(i, j int) { p.Players[i], p.Players[j] = p.Play
 // TODO: take into account more than just cities
 func (p PlayersByTurnOrder) Less(i, j int) bool {
 	return PlayerOwnedCities(p.Players[i], p.Board) < PlayerOwnedCities(p.Players[j], p.Board)
+}
+
+type PowerPlants struct {
+	PowerPlants []powergrid.PowerPlant
+}
+
+func (pp *PowerPlants) Len() int { return len(pp.PowerPlants) }
+
+func (pp *PowerPlants) Swap(i, j int) {
+	pp.PowerPlants[i], pp.PowerPlants[j] = pp.PowerPlants[j], pp.PowerPlants[i]
 }

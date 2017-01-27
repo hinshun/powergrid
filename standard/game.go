@@ -1,12 +1,26 @@
-package stdgame
+package standard
 
 import (
 	"fmt"
 	"sort"
 
 	"github.com/hinshun/powergrid"
-	"github.com/hinshun/powergrid/player"
 	"github.com/hinshun/powergrid/powerutil"
+)
+
+type phase uint
+
+const (
+	playerOrder phase = iota
+	auctionPlants
+	buyResources
+	build
+	powerYourShit
+	resources
+)
+
+const (
+	startingElektro = powergrid.Elektro(50)
 )
 
 type game struct {
@@ -15,11 +29,13 @@ type game struct {
 	board        powergrid.Board
 }
 
-func New(numPlayers uint) powergrid.Game {
+func NewGame(numPlayers uint) powergrid.Game {
 	players := []powergrid.Player{}
+
 	for i := uint(0); i < numPlayers; i++ {
-		players = append(players, player.New(i))
+		players = append(players, NewPlayer(i, startingElektro))
 	}
+
 	return &game{
 		players:      players,
 		currentPhase: playerOrder,
@@ -31,7 +47,7 @@ func (g *game) GridInfo() string {
 }
 
 func (g *game) loop() {
-	for p, f := range map[phase]func(){
+	for currentPhase, runPhase := range map[phase]func(){
 		playerOrder:   g.playerOrder,
 		auctionPlants: g.auctionPlants,
 		buyResources:  g.buyResources,
@@ -39,8 +55,8 @@ func (g *game) loop() {
 		powerYourShit: g.powerYourShit,
 		resources:     g.resources,
 	} {
-		g.currentPhase = p
-		f()
+		g.currentPhase = currentPhase
+		runPhase()
 	}
 }
 
@@ -62,6 +78,7 @@ func (g *game) buyResources() {
 		g.buyResourcesPlayer(player)
 	}
 }
+
 func (g *game) buyResourcesPlayer(player powergrid.Player) {
 	// TODO
 }
@@ -96,20 +113,10 @@ func (g *game) Run() {
 	fmt.Printf("The player order is: %s\n", g.players)
 
 	g.loop()
+
 	// TODO:
 	var input string
 	fmt.Scanf("%s", &input)
 
 	fmt.Printf("You entered %s.\n", input)
 }
-
-type phase uint
-
-const (
-	playerOrder phase = iota
-	auctionPlants
-	buyResources
-	build
-	powerYourShit
-	resources
-)
