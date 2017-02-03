@@ -65,6 +65,19 @@ type Stage interface {
 	CanAuctionPowerPlant(powerPlant PowerPlant) bool
 }
 
+type MoveType uint
+
+const (
+	AuctionType MoveType = iota
+	BuyResourceType
+	BuildHomesType
+	PowerType
+)
+
+type Move interface {
+	Type() MoveType
+}
+
 //var (
 //	GermanyGameRules = Rules{
 //		Stage1: GermanyStage1,
