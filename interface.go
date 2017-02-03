@@ -6,7 +6,7 @@ type Player interface {
 	Name() string
 }
 
-//
+// A ResourceMarket manages the supply and prices of resources.
 type ResourceMarket interface {
 	Inventory() ResourceSet
 	Cost(order ResourceSet) (Elektro, bool)
