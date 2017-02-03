@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	maxCoalOilGarbage uint = 24
+	maxCoalOilGarbage int = 24
 	maxUranium             = 12
 )
 
@@ -29,13 +29,13 @@ func (r resourceMarket) Inventory() powergrid.ResourceSet {
 	return inventory
 }
 
-type marginalCostFunc func(supply uint) powergrid.Elektro
+type marginalCostFunc func(supply int) powergrid.Elektro
 
-func marginalCostCoalOilGarbage(supply uint) powergrid.Elektro {
+func marginalCostCoalOilGarbage(supply int) powergrid.Elektro {
 	return powergrid.Elektro((maxCoalOilGarbage-supply)/3 + 1)
 }
 
-func marginalCostUranium(supply uint) powergrid.Elektro {
+func marginalCostUranium(supply int) powergrid.Elektro {
 	if supply <= 4 {
 		return powergrid.Elektro(10 + (4-supply)*2)
 	}
@@ -76,7 +76,7 @@ func (r resourceMarket) Cost(order powergrid.ResourceSet) (powergrid.Elektro, bo
 			return 0, false
 		}
 
-		for i := uint(0); i < demand; i++ {
+		for i := 0; i < demand; i++ {
 			runningCost += marginalCost(supply - i)
 		}
 	}
@@ -105,7 +105,7 @@ func (r resourceMarket) PurchaseResources(order powergrid.ResourceSet) {
 // resource.
 func (r resourceMarket) Replenish(resources powergrid.ResourceSet) {
 	for resource, quantity := range resources {
-		var maxQuantity uint
+		var maxQuantity int
 
 		supply := r.ResourceSet[resource]
 
